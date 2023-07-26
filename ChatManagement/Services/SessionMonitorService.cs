@@ -1,4 +1,6 @@
-﻿namespace ChatManagement.Services
+﻿using ChatManagement.IServices;
+
+namespace ChatManagement.Services
 {
     public class SessionMonitorService : IHostedService, IDisposable
     {
@@ -21,7 +23,7 @@
         private void CheckSessionActivity(object state)
         {
             using var scope = _scopeFactory.CreateScope();
-            var chatManagementService = scope.ServiceProvider.GetRequiredService<ChatManagementService>();
+            var chatManagementService = scope.ServiceProvider.GetRequiredService<IChatManagementService>();
 
             var now = DateTime.UtcNow;
 

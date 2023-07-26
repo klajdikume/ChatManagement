@@ -29,6 +29,7 @@
                 };
             }
         }
+
         public void AssignChatSession(ChatSession chatSession)
         {
             ChatSessions.Add(chatSession);

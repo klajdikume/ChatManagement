@@ -1,4 +1,5 @@
-﻿using ChatManagement.Models;
+﻿using ChatManagement.IServices;
+using ChatManagement.Models;
 using ChatManagement.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -11,9 +12,9 @@ namespace ChatManagement.Services
     public class AgentChatCoordinatorService
     {
         private readonly RabbitMQService _rabbitMQService;
-        private readonly ChatManagementService _chatManagementService;
+        private readonly IChatManagementService _chatManagementService;
         private IModel _channel;
-        public AgentChatCoordinatorService(RabbitMQService rabbitMQService, ChatManagementService chatManagementService)
+        public AgentChatCoordinatorService(RabbitMQService rabbitMQService, IChatManagementService chatManagementService)
         {
             _rabbitMQService = rabbitMQService;
             _chatManagementService = chatManagementService;

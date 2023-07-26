@@ -1,3 +1,4 @@
+using ChatManagement.IServices;
 using ChatManagement.Models;
 using ChatManagement.Services;
 using ChatManagement.WorkerServices;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton<RabbitMQService>();
-builder.Services.AddSingleton<ChatManagementService>();
+builder.Services.AddSingleton<IChatManagementService, ChatManagementService>();
 builder.Services.AddSingleton<AgentChatCoordinatorService>();
 builder.Services.AddHostedService<ChatSessionWorkerService>();
 builder.Services.AddHostedService<SessionMonitorService>();
@@ -33,7 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    var chatManagementService = app.Services.GetService<ChatManagementService>();
+    var chatManagementService = app.Services.GetService<IChatManagementService>();
     if (chatManagementService != null)
     {
         chatManagementService.AddTeam(new Team { Id = 1, Name = "Team A"

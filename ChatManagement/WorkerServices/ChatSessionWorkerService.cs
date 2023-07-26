@@ -1,4 +1,5 @@
-﻿using ChatManagement.Models;
+﻿using ChatManagement.IServices;
+using ChatManagement.Models;
 using ChatManagement.Services;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -11,12 +12,12 @@ namespace ChatManagement.WorkerServices
     {
         private readonly ILogger<ChatSessionWorkerService> _logger;
         private readonly RabbitMQService _rabbitMQService;
-        private readonly ChatManagementService _chatManagementService;
+        private readonly IChatManagementService _chatManagementService;
 
         public ChatSessionWorkerService(
             ILogger<ChatSessionWorkerService> logger, 
             RabbitMQService rabbitMQService,
-            ChatManagementService chatManagementService)
+            IChatManagementService chatManagementService)
         {
             _logger = logger;
             _rabbitMQService = rabbitMQService;
@@ -54,7 +55,7 @@ namespace ChatManagement.WorkerServices
                 
                 _logger.LogInformation($"Chat session received: {content}");
 
-                agent.ConsumeChatSession(chatSession);
+                
                 agent.IsAvailable = true;
                 _chatManagementService.DecrementQueueLength();
                 Console.WriteLine($" {chatSession.SessionId} - consumed by {agent.Id}");

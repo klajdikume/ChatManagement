@@ -99,7 +99,7 @@ namespace ChatManagement.Services
                     // Log the assignment
                     Console.WriteLine($"Assigned chat session {chatSession.SessionId} to agent {agent.Id}");
                     
-                    agent.ConsumeChatSession(chatSession);
+                    
                     agent.IsAvailable = true;
                     DecrementQueueLength();
                     Console.WriteLine($" {chatSession.SessionId} - consumed by {agent.Id}");
